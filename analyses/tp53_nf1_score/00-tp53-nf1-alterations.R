@@ -71,10 +71,10 @@ keep_columns <- c("Chromosome",
                   "Tumor_Sample_Barcode",
                   "Hugo_Symbol")
 
-tumoronly_snv <- data.table::fread(snvTumorOnlyFile, select = keep_columns) %>%
+tumoronly_snv <- data.table::fread(snvTumorOnlyFile, select = keep_columns, tmpdir = scratch_dir) %>%
   dplyr::rename("Kids_First_Biospecimen_ID" = "Tumor_Sample_Barcode") 
 
-consensus_snv <- data.table::fread(snvConsensusFile, select = keep_columns) %>%
+consensus_snv <- data.table::fread(snvConsensusFile, select = keep_columns, tmpdir = scratch_dir) %>%
   dplyr::rename("Kids_First_Biospecimen_ID" = "Tumor_Sample_Barcode") %>%
   bind_rows(tumoronly_snv)
 
@@ -126,7 +126,7 @@ tp53_coding <- coding_consensus_snv %>%
 # subset to TP53 cnv loss and format to tp53_coding file format
 tp53_loss<-cnvConsensus %>% 
   filter(gene_symbol == "TP53",
-         status == "Loss") %>%
+         status == "loss") %>%
   dplyr::rename("Tumor_Sample_Barcode" = "Kids_First_Biospecimen_ID",
                 "Variant_Classification" = "status",
                 "Hugo_Symbol" =  "gene_symbol")
@@ -145,7 +145,7 @@ nf1_coding <- coding_consensus_snv %>%
 # subset to NF1 loss and format to nf1_coding file format
 nf1_loss<-cnvConsensus %>% 
   filter(gene_symbol == "NF1",
-         status == "Loss") %>%
+         status == "loss") %>%
   dplyr::rename("Tumor_Sample_Barcode" = "Kids_First_Biospecimen_ID",
                 "Variant_Classification" = "status",
                 "Hugo_Symbol" =  "gene_symbol")

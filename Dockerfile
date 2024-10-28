@@ -53,6 +53,7 @@ RUN R -e 'BiocManager::install(c( \
 	"survival", \
 	"survminer", \
 	"sva", \
+	"txdbmaker", \
 	"WGCNA" \
     ))'
 

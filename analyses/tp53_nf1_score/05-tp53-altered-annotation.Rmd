@@ -34,6 +34,7 @@ library("broom")
 
 # rootdir
 root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+scratch_dir <- file.path(root_dir, "scratch")
 data_dir <- file.path(root_dir, "data")
 
 input_dir <- file.path(root_dir,
@@ -133,7 +134,8 @@ consensus_tp53_snv_indel <- data.table::fread(
          "Variant_Classification",
          "Tumor_Sample_Barcode",
          "SYMBOL",
-         "HGVSp_Short")) %>%
+         "HGVSp_Short"),
+  tmpdir = scratch_dir) %>%
   rename("Kids_First_Biospecimen_ID" = "Tumor_Sample_Barcode") %>%
   rename(Hugo_Symbol = SYMBOL) %>%
   filter(Hugo_Symbol == "TP53") %>%
