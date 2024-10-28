@@ -24,6 +24,7 @@ library("tidyverse")
 
 # rootdir
 root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+scratch_dir <- file.path(root_dir, "scratch")
 data_dir <- file.path(root_dir, "data")
 results_dir <- file.path(
   root_dir,
@@ -40,7 +41,7 @@ if (!dir.exists(results_dir)) {
 ### Input files
 ```{r}
 putative_onco_fusion <- read_rds(file.path(data_dir, "Hope-fusion-putative-oncogenic.rds"))
-manta_sv <- data.table::fread(file.path(data_dir, "Hope-sv-manta.tsv.gz")) 
+manta_sv <- data.table::fread(file.path(data_dir, "Hope-sv-manta.tsv.gz"), tmpdir = scratch_dir) 
 rna_expr <- readRDS(file.path(data_dir, "Hope-and-CPTAC-GBM-gene-expression-rsem-tpm-collapsed.rds"))
 clinical<-read_tsv(file.path(data_dir,"Hope-GBM-histologies-base.tsv"))
 

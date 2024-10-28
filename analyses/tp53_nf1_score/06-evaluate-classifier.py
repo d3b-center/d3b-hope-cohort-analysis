@@ -151,7 +151,10 @@ def get_roc_plot(scores_df, gene, outputfilename, color):
         sample_status, sample_score, drop_intermediate=False
     )
     precision_pbta, recall_pbta, _ = precision_recall_curve(sample_status, sample_score)
-    auroc_pbta = roc_auc_score(sample_status, sample_score)
+    try:
+        auroc_pbta = roc_auc_score(sample_status, sample_score)
+    except ValueError:
+        auroc_pbta = 0
     aupr_pbta = average_precision_score(sample_status, sample_score)
 
     # Obtain Shuffled Metrics
@@ -161,7 +164,10 @@ def get_roc_plot(scores_df, gene, outputfilename, color):
     precision_shuff, recall_shuff, _ = precision_recall_curve(
         sample_status, shuffle_score
     )
-    auroc_shuff = roc_auc_score(sample_status, shuffle_score)
+    try:
+        auroc_shuff = roc_auc_score(sample_status, shuffle_score)
+    except ValueError:
+        auroc_shuff = 0
     aupr_shuff = average_precision_score(sample_status, shuffle_score)
 
     roc_df = (

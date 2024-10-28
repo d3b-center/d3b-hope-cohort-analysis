@@ -134,7 +134,7 @@ annotated_cn <- data.frame(
 ) %>%
   dplyr::distinct() %>%
   # select loss that overlaps the TP53 core domains 
-  dplyr::filter(status=="Loss") %>%
+  dplyr::filter(status=="loss") %>%
   dplyr::group_by(biospecimen_id,copy_number) %>%
   # summarise domain NAME per biospecimen_id TP53 loss
   dplyr::summarise(

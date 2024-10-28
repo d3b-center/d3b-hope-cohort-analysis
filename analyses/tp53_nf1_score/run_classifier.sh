@@ -48,7 +48,7 @@ histology_file="${data_dir}/Hope-GBM-histologies-base.tsv"
 
 # Convert GTF to BED file
 # Here we are only extracting lines with as a CDS i.e. are coded in protein
-#gunzip -c ${data_dir}/gencode.v39.primary_assembly.annotation.gtf.gz \
+# gunzip -c ${data_dir}/gencode.v39.primary_assembly.annotation.gtf.gz \
 #  | awk '$3 ~ /CDS/' \
 #  | convert2bed --do-not-sort --input=gtf - \
 #  > $cds_file
@@ -103,10 +103,9 @@ echo "05 tp53"
 # evaluate classifer scores for stranded data
 # Skip poly-A, poly-A stranded, exome capture steps in CI
 if [ "$POLYA_STRAND" -gt "0" ]; then
-  #python3 06-evaluate-classifier.py -s results/tp53_altered_status.tsv -f results/gene-expression-rsem-tpm-collapsed-poly-A-stranded_classifier_scores.tsv -c ${histology_file} -o polya_stranded
-  python3 06-evaluate-classifier.py -s results/tp53_altered_status.tsv -f results/gene-expression-rsem-tpm-collapsed-exome_capture_classifier_scores.tsv -c ${histology_file} -o exome_capture
+  python3 06-evaluate-classifier.py -s results/tp53_altered_status.tsv -f results/gene-expression-rsem-tpm-collapsed-poly-A-stranded_classifier_scores.tsv -c ${histology_file} -o polya_stranded
   echo "6"
-  python3 06-evaluate-classifier.py -s results/tp53_altered_status.tsv -f results/gene-expression-rsem-tpm-collapsed-poly-A_classifier_scores.tsv -c ${histology_file} -o polya
+  python3 06-evaluate-classifier.py -s results/tp53_altered_status.tsv -f results/gene-expression-rsem-tpm-collapsed-exome_capture_classifier_scores.tsv -c ${histology_file} -o exome_capture
   echo "7"
   python3 06-evaluate-classifier.py -s results/tp53_altered_status.tsv -f results/gene-expression-rsem-tpm-collapsed-stranded_classifier_scores.tsv -c ${histology_file} -o stranded
   echo "8"
